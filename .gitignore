@@ -1,6 +1,9 @@
 /node_modules/
+/public/demo/
 /public/build/
 /public/global.css
+/public-local/build/
+/public-local/global.css
 *~
 .DS_Store
 /vscode
