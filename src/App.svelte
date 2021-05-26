@@ -5,8 +5,25 @@
 
   import { log_items, providers } from "./stores.js";
 
+  const strategy_descriptions = new Map();
+  strategy_descriptions.set("shuffle", {
+    label: "Erste erfolgreiche Abfrage",
+    description:
+      "Es wird versucht, von allen Anbietern Daten zu erhalten. Das erste Resultat gewinnt.",
+  });
+  strategy_descriptions.set("first", {
+    label: "Erster Anbieter",
+    description:
+      "Es wird ausschließlich versucht, vom ersten Anbieter Daten zu erhalten. Wenn dieser nicht dazu in der Lage ist werden keine Daten abgerufen.",
+  });
+  strategy_descriptions.set("same", {
+    label: "Zwei übereinstimmende Ergebnisse",
+    description:
+      "Es wird versucht, von allen Anbietern Daten zu erhalten. Der Wert, der von zwei unterschiedlichen Anbietern übereinstimmend zurückgeliefert wurde, gewinnt.",
+  });
+
   const strategy_options = [
-    ["shuffle", "Erste erfolgreiche Abfrage"],
+    ["shuffle", strategy_descriptions.get("shuffle").label],
     ["first", "Erster Anbieter"],
     ["same", "Zwei übereinstimmende Ergebnisse"],
   ];
@@ -153,7 +170,7 @@
   {/each}
 </section>
 
-<section class="container mt-3">
+<section class="container mt-4">
   <Row>
     <Col>
       <h1>Strategie für die Datenabfrage</h1>
@@ -168,12 +185,34 @@
       />
     </Col>
   </Row>
+
+  <Row class="mt-2">
+    <Col>
+      <Alert color="secondary">
+        <h4>
+          Gewählte Strategie – {strategy_descriptions.get(strategy).label}
+        </h4>
+        <p>
+          {strategy_descriptions.get(strategy).description}
+        </p>
+      </Alert>
+    </Col>
+  </Row>
 </section>
 
 <section class="container mt-5 mb-5">
   <Row>
     <Col>
       <h1>Datenabfrage</h1>
+    </Col>
+  </Row>
+
+  <Row class="mt-1">
+    <Col>
+      <Alert color="secondary">
+        Bitte die Erreichbarkeit von einem oder mehreren Anbietern einstellen
+        ,eine Abfragestrategie wählen und <b>Simuliere Datenabruf</b> betätigen.
+      </Alert>
     </Col>
   </Row>
 
@@ -261,5 +300,8 @@
   }
   tr.success td {
     background-color: rgba(0, 170, 0, 0.5);
+  }
+  h4 {
+    color: rgba(0, 0, 0, 0.6);
   }
 </style>
