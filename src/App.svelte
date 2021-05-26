@@ -1,5 +1,6 @@
 <script>
   import { Row, Button, Col, CustomInput } from "sveltestrap";
+  import { Alert } from "sveltestrap";
   import RadioButtons from "./RadioButtons.svelte";
 
   import { log_items, providers } from "./stores.js";
@@ -119,7 +120,7 @@
   }
 </script>
 
-<section class="container">
+<section class="container mt-5">
   <Row>
     <Col>
       <h1>Simulierte Cloud Provider</h1>
@@ -152,10 +153,10 @@
   {/each}
 </section>
 
-<section class="container">
+<section class="container mt-3">
   <Row>
     <Col>
-      <h1>Strategie</h1>
+      <h1>Strategie für die Datenabfrage</h1>
     </Col>
   </Row>
   <Row>
@@ -169,15 +170,21 @@
   </Row>
 </section>
 
-<section class="container">
+<section class="container mt-5 mb-5">
   <Row>
     <Col>
+      <h1>Datenabfrage</h1>
+    </Col>
+  </Row>
+
+  <Row>
+    <Col class="pl-5 pr-5">
       <Button color="primary" on:click={refresh}>Simuliere Datenabruf</Button>
     </Col>
   </Row>
 </section>
 
-<section class="container">
+<section class="container mt-3">
   <Row>
     <Col>
       <h2>Ergebnis</h2>
@@ -186,17 +193,17 @@
   <Row>
     <Col>
       {#if latest === false}
-        Noch keine Daten
+        <Alert color="info">Noch keine Daten abgerufen</Alert>
       {:else if latest === null}
-        Keine Daten bekommen
+        <Alert color="warning">Keine Daten erhalten</Alert>
       {:else}
-        {latest}
+        <Alert color="success">Erhaltener Datensatz ist '{latest}'</Alert>
       {/if}
     </Col>
   </Row>
 </section>
 
-<section class="container">
+<section class="container mt-2">
   <Row>
     <Col>
       <h2>Logbuch</h2>
@@ -205,7 +212,7 @@
   <Row>
     <Col>
       {#if $log_items.length === 0}
-        Noch keine Einträge
+        <Alert color="info">Es gibt noch keine Log Einträge.</Alert>
       {:else}
         <table class="table table-striped">
           <thead>
